@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
   def index
     @articles = ArticlesQuery.new(filter_params).run
-    render component: 'Articles', props: { articles: @articles }
+    render component: 'ArticlesContainer', props: { articles: @articles }, prerender: false
   end
 
   private
