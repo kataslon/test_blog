@@ -8,8 +8,7 @@ class ArticlesController < ApplicationController
   def destroy
     article = Article.find_by(id: params[:id])
     article.destroy
-    # ArticlesChannel.broadcast_to('ArticlesChannel', { articles: ArticlesQuery.new(params['filter_params'] || {}).run } )
-    ActionCable.server.broadcast('ArticlesChannel', { articles: ArticlesQuery.new(params['filter_params'] || {}).run } )
+    ActionCable.server.broadcast('ArticlesChannel', { articleId: params[:id].to_i } )
     render json: { result: 'success' }
   end
 

@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 import { useObserver } from "mobx-react"
 import { Header, Table, Button } from "semantic-ui-react"
 import { useStores } from "../../utils/hooks"
+import ArticleApi from "../../utils/ArticleApi"
 
 const DestroyButton = ({id, collback}) => {
   return (
@@ -50,7 +51,8 @@ const TableRow = ({item, destroyAction}) => {
 const Articles = () => {
   const {store} = useStores();
   const articles = useObserver(() => store.articles)
-  const destroyAction = store.destroyArticle
+  const api = new ArticleApi()
+
   return (
     <React.Fragment>
       <Header as='h1'>Articles</Header>
@@ -61,7 +63,7 @@ const Articles = () => {
             <TableRow
               item={item}
               key={item.id}
-              destroyAction={destroyAction}
+              destroyAction={api.destroyArticle}
             />)
           }
         </Table.Body>

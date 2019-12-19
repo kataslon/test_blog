@@ -3,6 +3,6 @@ import articleStore from "../stores/articleStoreInstance"
 
 consumer.subscriptions.create('ArticlesChannel', {
   received(data) {
-    articleStore.setInitialData(data.articles)
+    articleStore.destroyArticle(data.articleId)
   }
 })

@@ -1,9 +1,8 @@
-import { observable, action } from 'mobx'
+import { observable, action, toJS } from 'mobx'
 import ArticleApi from '../utils/ArticleApi'
 
 class ArticleStore {
   @observable articles = [];
-  @observable filterParams = {};
 
   constructor() {
     this.api = new ArticleApi();
@@ -14,7 +13,7 @@ class ArticleStore {
 
   @action
   destroyArticle = (id) => {
-    this.api.destroyArticle(id, this.filterParams)
+    this.articles = toJS(this.articles).filter(item => item.id !== id)
   }
 }
 

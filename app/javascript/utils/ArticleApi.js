@@ -1,4 +1,4 @@
-import { ajaxPost } from './ajax'
+import { ajaxDelete } from './ajax'
 
 export default class ArticleApi {
   destroyArticle = (id) => {
