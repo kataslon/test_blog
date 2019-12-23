@@ -1,70 +1,15 @@
 import React from 'react'
 import { toJS } from 'mobx'
 import { useObserver } from 'mobx-react'
-import { Header, Table, Button } from 'semantic-ui-react'
+import { Header, Table } from 'semantic-ui-react'
 import { useStores } from '../../utils/hooks'
 import ArticleApi from '../../utils/ArticleApi'
 
-const DestroyButton = ({id, collback}) => {
-  return (
-    <div>
-      <Button
-        negative
-        size='mini'
-        onClick={() => collback(id)}
-      >
-        Delete
-      </Button>
-    </div>
-  )
-}
-
-const TableHeader = ({column, direction, handleSort}) => {
-  return (
-    <Table.Header>
-      <Table.Row>
-        <Table.HeaderCell
-          sorted={column === 'name' ? direction : null}
-          onClick={handleSort('name')}
-        >
-          Name
-        </Table.HeaderCell>
-        <Table.HeaderCell
-          sorted={column === 'text' ? direction : null}
-          onClick={handleSort('text')}
-        >
-          Text
-        </Table.HeaderCell>
-        <Table.HeaderCell
-          sorted={column === 'type' ? direction : null}
-          onClick={handleSort('type')}
-        >
-          Type
-        </Table.HeaderCell>
-        <Table.HeaderCell>Actions</Table.HeaderCell>
-      </Table.Row>
-    </Table.Header>
-  )
-}
-
-const TableRow = ({item, destroyAction}) => {
-  return (
-    <Table.Row>
-      <Table.Cell>{item.name}</Table.Cell>
-      <Table.Cell>{item.text}</Table.Cell>
-      <Table.Cell>{item.kind.replace('_', ' ')}</Table.Cell>
-      <Table.Cell>
-        <DestroyButton
-          id={item.id}
-          collback={destroyAction}
-        />
-      </Table.Cell>
-    </Table.Row>
-  )
-}
+import TableHeader from './TableHeader'
+import TableRow from './TableRow'
 
 const Articles = () => {
-  const {store} = useStores();
+  const {store} = useStores()
   const filteredArticles = toJS(useObserver(() => store.articleStore.filteredArticles))
   const filters = toJS(useObserver(() => store.filterStore.params))
 
@@ -73,8 +18,9 @@ const Articles = () => {
   const handleSort = (column) => () => {
     let params
     if (column === filters.column) {
-      params = { direction: filters.direction === 'ascending' ? 'descending' : 'ascending',
-                 column: column }
+      params = {
+        direction: filters.direction === 'ascending' ? 'descending' : 'ascending',
+        column: column }
     } else {
       params = { direction: 'ascending', column: column }
     }
