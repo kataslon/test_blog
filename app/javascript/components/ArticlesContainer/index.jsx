@@ -1,15 +1,16 @@
 import React, { useEffect } from "react"
 import { Provider } from "mobx-react"
-import articleStore from "../../stores/articleStoreInstance"
+import rootStore from "../../stores/rootStoreInstance"
 import Articles from "../Articles"
 
 export default ({ articles }) => {
+export default (props) => {
   useEffect(() => {
-    articleStore.setInitialData(articles)
+    rootStore.setInitialData(props)
   }, [])
 
   return (
-    <Provider store={articleStore}>
+    <Provider store={rootStore}>
       <Articles />
     </Provider>
   )

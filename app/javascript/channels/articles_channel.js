@@ -1,8 +1,8 @@
 import consumer from './consumer'
-import articleStore from "../stores/articleStoreInstance"
+import rootStore from "../stores/rootStoreInstance"
 
 consumer.subscriptions.create('ArticlesChannel', {
   received(data) {
-    articleStore.destroyArticle(data.articleId)
+    rootStore.articleStore.destroyArticle(data.articleId)
   }
 })
