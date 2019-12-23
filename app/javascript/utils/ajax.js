@@ -17,8 +17,8 @@ function buildFetchOptions(method, data) {
   return options
 }
 
-export function ajaxPost(url, data) {
-  return fetch(`${url}.json`, buildFetchOptions("POST", data))
+export function ajaxGet(url) {
+  return fetch(`${url}`, buildFetchOptions("GET"))
 }
 
 export function ajaxDelete(url) {

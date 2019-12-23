@@ -11,7 +11,7 @@ class ArticleStore {
   }
 
   @action
-  setInitialData = ({articles}) => { this.articles = articles }
+  setData = ({articles}) => { this.articles = articles }
 
   @action
   destroyArticle = (id) => {

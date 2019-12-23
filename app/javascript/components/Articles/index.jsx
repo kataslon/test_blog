@@ -1,7 +1,7 @@
 import React from 'react'
 import { toJS } from 'mobx'
 import { useObserver } from 'mobx-react'
-import { Header, Table } from 'semantic-ui-react'
+import { Header, Table, Input } from 'semantic-ui-react'
 import { useStores } from '../../utils/hooks'
 import ArticleApi from '../../utils/ArticleApi'
 
@@ -12,6 +12,12 @@ const Articles = () => {
   const {store} = useStores()
   const filteredArticles = toJS(useObserver(() => store.articleStore.filteredArticles))
   const filters = toJS(useObserver(() => store.filterStore.params))
+
+  const capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1)
+
+  const articlePropertyOptions = ['not grouped', 'name', 'text', 'type', 'story'].map(key => {
+    return { key: key, value: key, text: capitalize(key) }
+  })
 
   const api = new ArticleApi()
 
@@ -27,9 +33,27 @@ const Articles = () => {
     store.filterStore.setParams(params)
   }
 
+  const handleSearchByName = (string) => {
+    store.fetchArticlesWithParams({ name: string })
+  }
+
+  const handleSearchByText = (string) => {
+    store.fetchArticlesWithParams({ text: string })
+  }
+
   return (
     <React.Fragment>
       <Header as='h1'>Articles</Header>
+      <Input
+        placeholder='Search by name'
+        icon='search'
+        onChange={(e) => handleSearchByName(e.target.value)}
+      />
+      <Input
+        placeholder='Search by text'
+        icon='search'
+        onChange={(e) => handleSearchByText(e.target.value)}
+      />
       <Table sortable celled fixed>
         <TableHeader
           column={filters.column}

@@ -25,31 +25,31 @@ class ArticlesQuery
   end
 
   def by_name
-    return unless @name
+    return if @name.nil? || @name.empty?
 
     @articles = @articles.where('name like ?', "%#{@name}%")
   end
 
   def by_text
-    return unless @text
+    return if @text.nil? || @text.empty?
 
     @articles = @articles.where('text like ?', "%#{@text}%")
   end
 
   def by_type
-    return unless @type
+    return if @type.nil? || @type.empty?
 
     @articles = @articles.where(kind: @type)
   end
 
   def sort
-    return unless @sort_param
+    return if @sort_param.nil? || @sort_param.empty?
 
     @articles = @articles.sort_by(&@sort_param.to_sym)
   end
 
   def group
-    return unless @group_param
+    return if @group_param.nil? || @group_param.empty?
 
     if @group_param == "type"
       param = :kind
