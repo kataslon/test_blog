@@ -33,26 +33,21 @@ const Articles = () => {
     store.filterStore.setParams(params)
   }
 
-  const handleSearchByName = (string) => {
-    store.fetchArticlesWithParams({ name: string })
-  }
-
-  const handleSearchByText = (string) => {
-    store.fetchArticlesWithParams({ text: string })
-  }
-
   return (
     <React.Fragment>
       <Header as='h1'>Articles</Header>
       <Input
         placeholder='Search by name'
         icon='search'
-        onChange={(e) => handleSearchByName(e.target.value)}
+        value={filters.name}
+        onChange={(e) => store.handleSearchByName(e.target.value)}
       />
       <Input
         placeholder='Search by text'
         icon='search'
-        onChange={(e) => handleSearchByText(e.target.value)}
+        value={filters.text}
+        onChange={(e) => store.handleSearchByText(e.target.value)}
+      />
       />
       <Table sortable celled fixed>
         <TableHeader

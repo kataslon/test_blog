@@ -14,6 +14,13 @@ class RootStore {
     this.articleStore.setData(data)
   }
 
+  handleSearchByName = (string) => {
+    this.fetchArticlesWithParams({ name: string })
+  }
+
+  handleSearchByText = (string) => {
+    this.fetchArticlesWithParams({ text: string })
+  }
   fetchArticlesWithParams = (params) => {
     this.filterStore.setParams(params)
     this.api.fetchArticles(this.filterStore.stringParams)

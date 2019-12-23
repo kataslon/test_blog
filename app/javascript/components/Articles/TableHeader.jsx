@@ -31,8 +31,8 @@ const TableHeader = ({column, direction, handleSort}) => {
 }
 
 TableHeader.propTypes = {
-  column: PropTypes.object.isRequired,
-  direction: PropTypes.string.isRequired,
+  column: PropTypes.object,
+  direction: PropTypes.string,
   handleSort: PropTypes.func.isRequired
 }
 
