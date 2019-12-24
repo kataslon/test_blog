@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { toJS } from 'mobx'
+import { Header } from 'semantic-ui-react'
 
 import ArticlesTable from './ArticlesTable'
 
@@ -8,7 +9,7 @@ const GroupedArticlesTable = ({groupedArticles}) => {
   return (
     Object.entries(groupedArticles).map(([groupName, group]) => (
       <React.Fragment>
-        <div key={groupName}>{groupName}</div>
+        <Header as='h3'>{groupName}</Header>
         <ArticlesTable articles={group} />
       </React.Fragment>
     ))
