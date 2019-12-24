@@ -80,6 +80,4 @@ test:
 #
 production:
   <<: *default
-  database: test_blog_production
-  username: test_blog
-  password: <%= ENV['TEST_BLOG_DATABASE_PASSWORD'] %>
+  url: postgres://postgres:93d640292921187bc672d841b6c725df@dokku-postgres-test-blog-production:5432/test_blog_production

@@ -1,0 +1,8 @@
+{
+  "name": "app",
+  "scripts": {
+    "dokku": {
+      "predeploy": "bundle exec rake db:migrate db:seed"
+    }
+  }
+}
