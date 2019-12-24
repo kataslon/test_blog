@@ -15,7 +15,7 @@ const Articles = () => {
 
   const capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1)
 
-  const articlePropertyOptions = ['name', 'text', 'type'].map(key => {
+  const articlePropertyOptions = ['not grouped', 'name', 'text', 'type'].map(key => {
     return { value: key, label: capitalize(key) }
   })
 
@@ -40,7 +40,7 @@ const Articles = () => {
         value={filters.group_by}
         onChange={(val) => store.handleGrouping(val.value)}
       />
-      {filters.group_param && !store.articleStore.isArray ?
+      {!store.articleStore.isArray ?
         <GroupedArticlesTable groupedArticles={filteredArticles} /> :
         <ArticlesTable articles={filteredArticles} />}
     </React.Fragment>

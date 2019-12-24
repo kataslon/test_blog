@@ -5,6 +5,9 @@ class FilterStore {
 
   @action
   setParam = ([name, value]) => {
+    if (value === 'not grouped') {
+      value = null
+    }
     this.params = {...this.params, [name]: value }
   }
 
@@ -15,7 +18,9 @@ class FilterStore {
 
   @computed
   get stringParams() {
-    return Object.entries(toJS(this.params)).map(item => item[0] + '=' + item[1]).join('&')
+    return Object.entries(toJS(this.params))
+      .filter(item => item[1])
+      .map(item => item[0] + '=' + item[1]).join('&')
   }
 }
 

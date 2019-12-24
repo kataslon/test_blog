@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { toJS } from 'mobx'
 import { Header } from 'semantic-ui-react'
 
 import ArticlesTable from './ArticlesTable'
