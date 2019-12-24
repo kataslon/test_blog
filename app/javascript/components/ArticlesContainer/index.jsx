@@ -3,7 +3,6 @@ import { Provider } from "mobx-react"
 import rootStore from "../../stores/rootStoreInstance"
 import Articles from "../Articles"
 
-export default ({ articles }) => {
 export default (props) => {
   useEffect(() => {
     rootStore.setInitialData(props)

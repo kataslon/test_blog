@@ -52,9 +52,9 @@ class ArticlesQuery
     return if @group_param.nil? || @group_param.empty?
 
     if @group_param == "type"
-      param = :kind
+      @group_param = :kind
     end
-    @articles = @articles.group_by(&param.to_sym)
+    @articles = @articles.group_by(&@group_param.to_sym)
   end
 
   def group_by_story

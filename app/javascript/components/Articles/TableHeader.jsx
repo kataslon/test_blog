@@ -19,8 +19,8 @@ const TableHeader = ({column, direction, handleSort}) => {
           Text
         </Table.HeaderCell>
         <Table.HeaderCell
-          sorted={column === 'type' ? direction : null}
-          onClick={handleSort('type')}
+          sorted={column === 'kind' ? direction : null}
+          onClick={handleSort('kind')}
         >
           Type
         </Table.HeaderCell>
@@ -31,7 +31,7 @@ const TableHeader = ({column, direction, handleSort}) => {
 }
 
 TableHeader.propTypes = {
-  column: PropTypes.object,
+  column: PropTypes.string,
   direction: PropTypes.string,
   handleSort: PropTypes.func.isRequired
 }

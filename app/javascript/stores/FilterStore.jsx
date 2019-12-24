@@ -4,9 +4,13 @@ class FilterStore {
   @observable params = {column: null, direction: 'ascending'};
 
   @action
-  setParams = (param) => {
-    const item = Object.entries(param)[0]
-    this.params[item[0]] = item[1]
+  setParam = ([name, value]) => {
+    this.params = {...this.params, [name]: value }
+  }
+
+  @action
+  setSortParams = (params) => {
+    this.params = {...this.params, ...params}
   }
 
   @computed

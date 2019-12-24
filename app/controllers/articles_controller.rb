@@ -20,5 +20,4 @@ class ArticlesController < ApplicationController
   def filter_params
     params.permit(:id, :name, :text, :type, :sort_param, :group_param)
   end
-  end
 end

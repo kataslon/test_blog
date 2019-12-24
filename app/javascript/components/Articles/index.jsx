@@ -1,12 +1,12 @@
 import React from 'react'
 import { toJS } from 'mobx'
+import Select from 'react-select'
 import { useObserver } from 'mobx-react'
-import { Header, Table, Input } from 'semantic-ui-react'
+import { Header, Input } from 'semantic-ui-react'
 import { useStores } from '../../utils/hooks'
-import ArticleApi from '../../utils/ArticleApi'
 
-import TableHeader from './TableHeader'
-import TableRow from './TableRow'
+import ArticlesTable from './ArticlesTable'
+import GroupedArticlesTable from './GroupedArticlesTable'
 
 const Articles = () => {
   const {store} = useStores()
@@ -15,23 +15,9 @@ const Articles = () => {
 
   const capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1)
 
-  const articlePropertyOptions = ['not grouped', 'name', 'text', 'type', 'story'].map(key => {
-    return { key: key, value: key, text: capitalize(key) }
+  const articlePropertyOptions = ['name', 'text', 'type'].map(key => {
+    return { value: key, label: capitalize(key) }
   })
-
-  const api = new ArticleApi()
-
-  const handleSort = (column) => () => {
-    let params
-    if (column === filters.column) {
-      params = {
-        direction: filters.direction === 'ascending' ? 'descending' : 'ascending',
-        column: column }
-    } else {
-      params = { direction: 'ascending', column: column }
-    }
-    store.filterStore.setParams(params)
-  }
 
   return (
     <React.Fragment>
@@ -48,23 +34,15 @@ const Articles = () => {
         value={filters.text}
         onChange={(e) => store.handleSearchByText(e.target.value)}
       />
+      <Select
+        placeholder='Group by ...'
+        options={articlePropertyOptions}
+        value={filters.group_by}
+        onChange={(val) => store.handleGrouping(val.value)}
       />
-      <Table sortable celled fixed>
-        <TableHeader
-          column={filters.column}
-          direction={filters.direction}
-          handleSort={handleSort}
-        />
-        <Table.Body>
-          {filteredArticles.map(item =>
-            <TableRow
-              item={item}
-              key={item.id}
-              destroyAction={api.destroyArticle}
-            />)
-          }
-        </Table.Body>
-      </Table>
+      {filters.group_param && !store.articleStore.isArray ?
+        <GroupedArticlesTable groupedArticles={filteredArticles} /> :
+        <ArticlesTable articles={filteredArticles} />}
     </React.Fragment>
   )
 }

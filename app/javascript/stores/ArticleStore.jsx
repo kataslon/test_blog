@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import * as R from 'ramda'
 import { observable, action, computed, toJS } from 'mobx'
 import ArticleApi from '../utils/ArticleApi'
 
@@ -19,9 +19,18 @@ class ArticleStore {
   }
 
   @computed
+  get isArray() {
+    return Object.prototype.toString.call(this.articles) === '[object Array]'
+  }
+
+  @computed
   get filteredArticles() {
-    const sorted = _.sortBy(this.articles, [this.filters.params.column])
-    return this.filters.params.direction === 'ascending' ? sorted : sorted.reverse()
+    if (this.isArray) {
+      const sorted = R.sortBy(R.prop(this.filters.params.column))(this.articles)
+      return this.filters.params.direction === 'ascending' ? sorted : sorted.reverse()
+    } else {
+      return this.articles
+    }
   }
 }
 

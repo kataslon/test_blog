@@ -1,4 +1,4 @@
-import { action, toJS } from 'mobx'
+import { action } from 'mobx'
 import ArticleStore from './ArticleStore'
 import FilterStore from './FilterStore'
 import ArticleApi from '../utils/ArticleApi'
@@ -15,14 +15,20 @@ class RootStore {
   }
 
   handleSearchByName = (string) => {
-    this.fetchArticlesWithParams({ name: string })
+    this.fetchArticlesWithParams(['name', string])
   }
 
   handleSearchByText = (string) => {
-    this.fetchArticlesWithParams({ text: string })
+    this.fetchArticlesWithParams(['text', string])
   }
-  fetchArticlesWithParams = (params) => {
-    this.filterStore.setParams(params)
+
+  handleGrouping = (string) => {
+    this.fetchArticlesWithParams(['group_param', string])
+  }
+
+  @action
+  fetchArticlesWithParams = (param) => {
+    this.filterStore.setParam(param)
     this.api.fetchArticles(this.filterStore.stringParams)
       .then(articles => {
         this.articleStore.setData(articles)
