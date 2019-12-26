@@ -74,20 +74,20 @@ describe ArticlesQuery do
       let(:params) { { sort_param: 'name', group_param: 'story' } }
 
       it 'returns all transactions' do
-        expect(result).to eq ([
+        expect(result).to eq (
           {
-            story: story_1,
-            article_count: 2,
-            type_count: 2,
-            last_article: article_2
-          },
-          {
-            story: story_2,
-            article_count: 2,
-            type_count: 2,
-            last_article: article_3
+            story_2.name => {
+              story: story_2,
+              article_count: 2,
+              type_count: 2,
+              last_article: article_3 },
+            story_1.name => {
+              story: story_1,
+              article_count: 2,
+              type_count: 2,
+              last_article: article_2 }
           }
-        ])
+        )
       end
     end
   end

@@ -15,7 +15,7 @@ const Articles = () => {
 
   const capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1)
 
-  const articlePropertyOptions = ['not grouped', 'name', 'text', 'type'].map(key => {
+  const articlePropertyOptions = ['not grouped', 'name', 'text', 'type', 'story'].map(key => {
     return { value: key, label: capitalize(key) }
   })
 

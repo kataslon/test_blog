@@ -58,15 +58,14 @@ class ArticlesQuery
   end
 
   def group_by_story
-    @articles = @articles.group_by { |article| article.story }
+    @articles = @articles.includes(:story)
+      .group_by { |article| article.story }
       .map do |story, scope|
-        {
-          story: story,
-          article_count: scope.count,
-          type_count: type_count(scope),
-          last_article: last_for(scope)
-        }
-      end
+        [story.name, { story: story,
+                       article_count: scope.count,
+                       type_count: type_count(scope),
+                       last_article: last_for(scope) }]
+    end.to_h
   end
 
   def type_count(articles)
