@@ -15,7 +15,15 @@ class ArticleStore {
 
   @action
   destroyArticle = (id) => {
-    this.articles = toJS(this.articles).filter(item => item.id !== id)
+    if (this.isArray) {
+      this.articles = this.articles.filter(item => item.id !== id)
+    } else {
+      const filteredList = {}
+      for (const key in this.articles) {
+        filteredList[key] = this.articles[key].filter(item => item.id !== id)
+      }
+      this.articles = filteredList
+    }
   }
 
   @computed
