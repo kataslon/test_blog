@@ -36,9 +36,15 @@ class ArticleStore {
     if (this.isArray) {
       const sorted = R.sortBy(R.prop(this.filters.params.column))(this.articles)
       return this.filters.params.direction === 'ascending' ? sorted : sorted.reverse()
-    } else {
+    } else if (this.filters.params.group_param === 'story') {
       return this.articles
     }
+    const sortedList = {}
+    for (const key in this.articles) {
+      const sorted = R.sortBy(R.prop(this.filters.params.column))(this.articles[key])
+      sortedList[key] = this.filters.params.direction === 'ascending' ? sorted : sorted.reverse()
+    }
+    return sortedList
   }
 }
 
